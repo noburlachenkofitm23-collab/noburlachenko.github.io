@@ -1,0 +1,278 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	text-align: center;
+	padding: 1rem;
+}
+
+header h1 span {
+	color: crimson;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	padding: 0 1rem;
+}
+
+.sidebar {
+	order: 1;
+}
+
+.gallery {
+	order: 2;
+}
+
+.calories-filter {
+	display: none;
+}
+
+.filters {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	gap: 0.5rem;
+	width: 100%;
+	margin: 1rem 0;
+}
+
+.filters label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #eee;
+	padding: 0.5rem 1rem;
+	border-radius: 6px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: background 0.3s;
+}
+
+.filters label:hover {
+	background: #ddd;
+}
+
+/* Приховуємо радіокнопки */
+input[type="radio"][name="filter"] {
+	display: none;
+}
+
+/* --- ГАЛЕРЕЯ --- */
+.gallery {
+	display: grid;
+	gap: 1rem;
+}
+
+.card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	overflow: hidden;
+	background: #fff;
+	text-align: center;
+}
+
+.card img {
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
+	object-position: top;
+	display: block;
+	background: #f9f9f9;
+}
+
+/* Вміст картки */
+.card h2,
+.card p {
+	margin: 0.5rem;
+}
+
+/* --- ФІЛЬТР --- */
+/* Спочатку всі картки показані */
+.gallery .card {
+	display: block;
+}
+
+/* Коли обраний певний фільтр — усі, що не відповідають, ховаються */
+#filter-pie:checked~.container .gallery .card:not(.pie),
+#filter-roll:checked~.container .gallery .card:not(.roll),
+#filter-cheese:checked~.container .gallery .card:not(.cheese),
+#filter-cake:checked~.container .gallery .card:not(.cake),
+#filter-sweet:checked~.container .gallery .card:not(.sweet) {
+	display: none;
+}
+
+/* Коли натиснуто "Скинути" — показати все (хоча за замовчуванням і так видно, але для ясності) */
+#filter-all:checked~.container .gallery .card {
+	display: block;
+}
+
+/* --- МЕДІА ЗАПИТИ --- */
+/* 📱 Мобільний — тільки зображення */
+@media (max-width: 730px) {
+	.gallery {
+		grid-template-columns: 1fr;
+	}
+
+	.card h2,
+	.card p {
+		display: none;
+	}
+
+	footer {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 1rem;
+		background: #f2f2f2;
+		text-align: left;
+		gap: 0.3rem;
+	}
+
+	footer p {
+		margin: 0;
+	}
+
+	footer a {
+		color: inherit;
+		text-decoration: none;
+	}
+}
+
+/* 💻 Планшет — зображення + назва */
+@media (min-width: 730px) and (max-width: 1200px) {
+	.gallery {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.card h2 {
+		display: block;
+	}
+
+	.card p {
+		display: none;
+	}
+
+	footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		padding: 1rem 2rem;
+		border-top: 2px solid #ccc;
+		background: #f9f9f9;
+		text-align: left;
+	}
+
+	/* Лівий блок з контактами */
+	footer .left {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.3rem;
+	}
+
+	footer p {
+		margin: 0;
+	}
+
+	footer a {
+		color: inherit;
+		text-decoration: none;
+	}
+}
+
+/* 🖥️ ПК — зображення + назва + калорії */
+@media (min-width: 1200px) {
+	.container {
+		flex-direction: row;
+	}
+
+	.sidebar {
+		order: 2;
+		padding-left: 1rem;
+		width: 200px;
+		/* або інша ширина */
+	}
+
+	.gallery {
+		order: 1;
+		flex: 1;
+		grid-template-columns: repeat(3, 1fr);
+		align-items: start;
+	}
+
+	.card h2,
+	.card p {
+		display: block;
+	}
+
+	.calories-filter {
+		display: block;
+		margin-bottom: 1rem;
+		text-align: center;
+	}
+
+	.calories-filter p {
+		margin: 0.5rem 0;
+	}
+
+	.slider-bar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto;
+		width: 80%;
+	}
+
+	.slider-bar .circle {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: #000;
+	}
+
+	.slider-bar .line {
+		height: 2px;
+		background: #000;
+		flex: 1;
+	}
+
+	.filters {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.filters label {
+		justify-content: flex-start;
+		padding: 0.5rem;
+	}
+
+	footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1rem 2rem;
+		background: #fafafa;
+		border-top: 1px solid #ddd;
+		text-align: left;
+	}
+
+	footer .left {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	footer p {
+		margin: 0;
+	}
+
+	footer a {
+		color: inherit;
+		text-decoration: none;
+	}
+}
